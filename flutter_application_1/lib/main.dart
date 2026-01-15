@@ -1,3 +1,9 @@
+/*
+Author: Jose Marques Sanchez-Bote
+Date: January 2026
+Description: A Flutter application that demonstrates a counter of pineapples with increment, decrement, multiply, and divide functionalities using floating action buttons arranged based on device orientation.
+*/
+
 import 'package:flutter/material.dart';
 
 void main() {
@@ -108,10 +114,8 @@ class _MyHomePageState extends State<MyHomePage> {
 
       floatingActionButton: LayoutBuilder(
         builder: (context, constraints) {
-          // Check if the width is smaller than the height
           bool isPortrait = constraints.maxWidth < constraints.maxHeight;
 
-          // Use a helper list to avoid repeating the buttons twice in the code
           List<Widget> actionButtons = [
             FloatingActionButton(
               onPressed: () => _incrementCounter(1),
@@ -195,8 +199,9 @@ class _MyHomePageState extends State<MyHomePage> {
             );
           }
         }, // Closing builder
-      ), // Closing LayoutBuilder and property 
+      ), // Closing LayoutBuilder and property
     ); // Closing Scaffold
   } // Closing build method
 } // Closing _MyHomePageState class
+
 // Madre que largo se me hizo esto
