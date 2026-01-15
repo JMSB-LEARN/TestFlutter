@@ -106,84 +106,97 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
       ),
 
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          FloatingActionButton(
-            onPressed: () => _incrementCounter(1),
-            tooltip: 'Increment 1',
-            child: const Icon(Icons.exposure_plus_1),
-          ),
-          const SizedBox(width: 12),
+      floatingActionButton: LayoutBuilder(
+        builder: (context, constraints) {
+          // Check if the width is smaller than the height
+          bool isPortrait = constraints.maxWidth < constraints.maxHeight;
 
-          FloatingActionButton(
-            onPressed: () => _incrementCounter(2),
-            tooltip: 'Increment 2',
-            child: const Icon(Icons.exposure_plus_2),
-          ),
-          const SizedBox(width: 24),
-
-          FloatingActionButton(
-            onPressed: () => _decrementCounter(1),
-            tooltip: 'Decrement 1',
-            child: const Icon(Icons.exposure_minus_1),
-          ),
-          const SizedBox(width: 12),
-
-          FloatingActionButton(
-            onPressed: () => _decrementCounter(2),
-            tooltip: 'Decrement 2',
-            child: const Icon(Icons.exposure_minus_2),
-          ),
-          const SizedBox(width: 24),
-
-          FloatingActionButton(
-            onPressed: () => _multiplyCounter(2),
-            tooltip: 'Multiply 2',
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-
-              children: <Widget>[
-                Icon(Icons.close, semanticLabel: 'Multiply icon'),
-                Icon(Icons.looks_two),
-              ],
+          // Use a helper list to avoid repeating the buttons twice in the code
+          List<Widget> actionButtons = [
+            FloatingActionButton(
+              onPressed: () => _incrementCounter(1),
+              tooltip: 'Increment 1',
+              child: const Icon(Icons.exposure_plus_1),
             ),
-          ),
-          const SizedBox(width: 12),
-
-          FloatingActionButton(
-            onPressed: () => _multiplyCounter(3),
-            tooltip: 'Multiply 3',
-            child: const Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: <Widget>[
-                Icon(Icons.close, semanticLabel: 'Multiply icon'),
-                Icon(Icons.looks_3),
-              ],
+            FloatingActionButton(
+              onPressed: () => _incrementCounter(2),
+              tooltip: 'Increment 2',
+              child: const Icon(Icons.exposure_plus_2),
             ),
-          ),
-          const SizedBox(width: 24),
+            FloatingActionButton(
+              onPressed: () => _decrementCounter(1),
+              tooltip: 'Decrement 1',
+              child: const Icon(Icons.exposure_minus_1),
+            ),
+            FloatingActionButton(
+              onPressed: () => _decrementCounter(2),
+              tooltip: 'Decrement 2',
+              child: const Icon(Icons.exposure_minus_2),
+            ),
+            FloatingActionButton(
+              onPressed: () => _multiplyCounter(2),
+              tooltip: 'Multiply 2',
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Icon(Icons.close, semanticLabel: 'Multiply icon'),
+                  Icon(Icons.looks_two),
+                ],
+              ),
+            ),
+            FloatingActionButton(
+              onPressed: () => _multiplyCounter(3),
+              tooltip: 'Multiply 3',
+              child: const Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: <Widget>[
+                  Icon(Icons.close, semanticLabel: 'Multiply icon'),
+                  Icon(Icons.looks_3),
+                ],
+              ),
+            ),
+            FloatingActionButton.extended(
+              onPressed: () => _divideCounter(2),
+              label: const Text("÷ 2"),
+            ),
+            FloatingActionButton.extended(
+              onPressed: () => _divideCounter(10),
+              label: const Text("÷ 10"),
+            ),
+            FloatingActionButton.extended(
+              onPressed: () => _multiplyCounter(-1),
+              label: const Text("∓"),
+            ),
+          ];
 
-          FloatingActionButton.extended(
-            onPressed: () => _divideCounter(2),
-            label: const Text("÷ 2"),
-          ),
-          const SizedBox(width: 12),
-
-          FloatingActionButton.extended(
-            onPressed: () => _divideCounter(10),
-            label: const Text("÷ 10"),
-          ),
-          const SizedBox(width: 24),
-
-          FloatingActionButton.extended(
-            onPressed: () => _multiplyCounter(-1),
-            label: const Text("∓"),
-          ),
-          const SizedBox(width: 24),
-        ],
-      ),
-    );
-  }
-}
+          if (isPortrait) {
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: actionButtons
+                  .map(
+                    (btn) => Padding(
+                      padding: const EdgeInsets.only(bottom: 8.0),
+                      child: btn,
+                    ),
+                  )
+                  .toList(),
+            );
+          } else {
+            return Row(
+              mainAxisSize: MainAxisSize.min,
+              children: actionButtons
+                  .map(
+                    (btn) => Padding(
+                      padding: const EdgeInsets.only(right: 8.0),
+                      child: btn,
+                    ),
+                  )
+                  .toList(),
+            );
+          }
+        }, // Closing builder
+      ), // Closing LayoutBuilder and property 
+    ); // Closing Scaffold
+  } // Closing build method
+} // Closing _MyHomePageState class
+// Madre que largo se me hizo esto
